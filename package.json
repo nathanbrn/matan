@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start":"bundle exec vite dev"
+    "start": "bundle exec vite dev"
   },
   "devDependencies": {
     "vite": "^6.0.7",

@@ -1,17 +1,20 @@
 <template>
   <div>
     Hello Users
+    
+    <Link href="/users/new">Novo usuário</Link>
   </div>
 </template>
 <script>
+import { Link } from '@inertiajs/inertia-vue3';
 export default {
   props: {
     users: {
       type: Array,
     }
   },
-  mounted() {
-    console.log(this.users);
+  components: {
+    Link,
   }
 }
 </script>
