@@ -29,6 +29,7 @@
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
+import '../../assets/stylesheets/tailwind.css';
 import Layout from '../frontend/Pages/Layout/Layout.vue'
 InertiaProgress.init();
 
