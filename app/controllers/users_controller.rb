@@ -4,67 +4,65 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    render inertia: "Users/Index", props: { users: @users.as_json }
   end
 
-  # GET /users/1 or /users/1.json
   def show
   end
 
   # GET /users/new
   def new
     @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
+    render inertia: "Users/New", props: { user: @user.as_json }
   end
 
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      redirect_to users_path, notice: "Usuário criado com sucesso."
+    else
+      redirect_to new_user_path, inertia: { errors: @user.errors.full_messages }
     end
+  end
+
+  # GET /users/1/edit
+  def edit
+    @user = User.find(params[:id])
+    render inertia: "Users/Edit", props: { user: @user, users: @users }
   end
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      redirect_to users_path, notice: "Usuário atualizado com sucesso."
+    else
+      render inertia: "Users/Edit", props: { user: @user, users: @users }
     end
   end
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy!
+    @user = User.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+    if @user.destroy
+      redirect_to users_path, notice: "Usuário deletado com sucesso."
+    else
+      redirect_to users_path, error: "Erro ao deletar usuário."
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params.expect(:id))
+      @users = User.all
     end
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :description, :username, :password ])
+      params.require(:user).permit(:description, :username, :password)
     end
 end

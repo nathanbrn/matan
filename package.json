@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start":"bundle exec vite dev"
+  },
+  "devDependencies": {
+    "vite": "^6.0.7",
+    "vite-plugin-ruby": "^5.1.1"
+  },
+  "dependencies": {
+    "@inertiajs/inertia": "^0.11.1",
+    "@inertiajs/inertia-vue3": "^0.6.0",
+    "@inertiajs/progress": "^0.2.7",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "add": "^2.0.6",
+    "vue": "^3.5.13",
+    "yarn": "^1.22.22"
+  }
+}
